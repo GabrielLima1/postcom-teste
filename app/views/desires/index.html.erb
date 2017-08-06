@@ -1,0 +1,49 @@
+<%- model_class = Desire -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<% if (@desires.nil?) || (@desires.empty?) %>
+  <h1>Você não possuí nenhum Pedido!</h1>
+<% else %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Titulo Postagem</th>
+        <th>Objetivo</th>
+        <th>Descrição</th>
+        <th>Empresa</th>
+        <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+        <% @desires.each do |desire| %>
+          <tr>
+            <td><%= link_to desire.id, desire_path(desire) %></td>
+            <td><%= desire.title %></td>
+            <td><%= desire.action %></td>
+            <td><%if desire.description.length>80 %>
+                <%=desire.description.first(80)%>... <%= link_to 'Ver mais', desire_path(desire)%>
+               <%else%>
+               <%=desire.description%>
+               <%end%>
+            </td>
+            <td><%= desire.account.name%></td>
+            <td>
+              <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                          edit_desire_path(desire), :class => 'btn btn-default btn-xs' %>
+              <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                          desire_path(desire),
+                          :method => :delete,
+                          :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                          :class => 'btn btn-xs btn-danger' %>
+            </td>
+          </tr>
+        <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_desire_path,
+            :class => 'btn btn-primary' %>

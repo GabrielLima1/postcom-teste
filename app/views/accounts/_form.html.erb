@@ -1,0 +1,13 @@
+
+<%= simple_form_for @account, {:multipart => true} do |f| %>
+  <%= f.input :name, placeholder: 'Ex: Facebook L.D.T.A.', label: 'Nome de sua Empresa:' %>
+  <%= f.input :description, maxlength: "200", id: 'review_text',  placeholder: 'Breve descrição sobre sua Empresa!', label: 'Descrição:' %>
+  <!-- Caracteres: <span id="counter" data-maximum-length="<%= @maximum_length %>"><%= @maximum_length %></span><br> -->
+  <%= f.label 'Logo da Empresa:' %>
+  <%= f.file_field :avatar %><br>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+
+  <%= f.button :submit, :class => 'btn-primary', value: 'Cadastrar' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                accounts_path, :class => 'btn btn-default' %>
+<% end %>

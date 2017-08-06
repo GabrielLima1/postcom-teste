@@ -1,0 +1,40 @@
+<%- model_class = Account -%>
+<div class="page-header">
+  <h1>Empresas Cadastradas -
+  <%= link_to 'Cadastrar',
+              new_account_path,
+              :class => 'btn btn-primary' %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Logo</th>
+      <th>Nome Empresa</th>
+      <th>Descrição</th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @accounts.each do |account| %>
+      <tr>
+        <td><%= link_to image_tag(account.avatar.thumb), account_path(account) %></td>
+        <td><%= account.name %></td>
+        <td><%if account.description.length>80 %>
+            <%=account.description.first(80)%>... <%= link_to 'Ver mais', account_path(account)%>
+           <%else%>
+           <%=account.description%>
+           <%end%>
+        </td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_account_path(account), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      account_path(account),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
