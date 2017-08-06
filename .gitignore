@@ -13,5 +13,8 @@
 !/log/.keep
 !/tmp/.keep
 
+# Pasta de upload de imagens
+ /public/uploads/*
+ 
 # Ignore Byebug command history file.
 .byebug_history
